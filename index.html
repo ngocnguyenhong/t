@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<script src="https://hngocit.github.io/cdn/00js/jquery.min.js"></script>
+<script src="https://hngocit.github.io/cdn/00js/html2canvas.js"></script>
+	<style type="text/css">
+		table {
+  width:100%;
+  font-size: 30px;
+}
+.op {
+  width: 100%;
+  font-size: 28px;
+  border-style: hidden;
+  background-color: #F0F0F1;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+.custom-select {
+  position: relative;
+  font-family: Arial;
+  text-align: center;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table {
+    display: table;
+}
+#tit4{
+	background: yellow;
+}
+	</style>
+<script>
+const shareButton = document.querySelector('.share-button');
+const shareDialog = document.querySelector('.share-dialog');
+const closeButton = document.querySelector('.close-button');
+
+shareButton.addEventListener('click', event => {
+  if (navigator.share) { 
+   navigator.share({
+      title: 'WebShare API Demo',
+      url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+    }).then(() => {
+      console.log('Thanks for sharing!');
+    })
+    .catch(console.error);
+    } else {
+        shareDialog.classList.add('is-open');
+    }
+});
+
+closeButton.addEventListener('click', event => {
+  shareDialog.classList.remove('is-open');
+});
+</script>
+</head>
+
+<body>
+	<div id="html-content-holder" style="background-color: #F0F0F1; width: 1020px;
+        padding-left: 25px; padding-top: 10px;padding-bottom: 10px;">
+	<table style="width: 1000px;">
+  <tr>
+    <td colspan="3" style="width: 50%;text-align: center;background-color:orange;"><strong>Báo cáo nhân sự làm việc</strong></td>
+    <td style="text-align: center;">Ngày</td> 
+    <th id="datee" style="width: 50%;text-align: center;color: red;"></th>
+  </tr>
+  <tr>
+    <th style="width: 15%;">Mã Kho</th>
+    <th style="width: 15%;text-align: center;color: red;">4251</th>
+    <th colspan="3" style="color: Navy;text-align: left;">&nbsp MB2_QNI - Kho CN ĐMX Uông Bí</th>
+  </tr>
+  <tr>
+    <th colspan="3" style="color: red;text-align: left;">&nbspTBP: 2132 - Bàng Lâm Sung</th>
+    <th colspan="2" style="text-align: center;color: red;">37694 - Vũ Xuân Công</th>
+  </tr>
+  <tr id="tit4" style="text-align: center;">
+    <th>MSNV</th>
+    <th colspan="2" style="width: 30%;">Họ Tên</th>
+    <th style="width: 35%;">Ca Làm Việc</th>
+    <th>Trực đêm</th>
+  </tr>
+  <tr style="text-align: center;">
+    <td>30457</td>
+    <td colspan="2">Nguyễn Hồng Ngọc</td>
+    <td>
+<select class="op">
+  <option>Ca HC6 (7h30-14h00)</option>
+  <option>Ca HC4 (14h00-21h00)</option>
+  <option>Ca HC (7h30-14h00)</option>
+  <option>Ca HC1 (7h30-16h30)</option>
+  <option>Ca HC2 (13h30-22h00)</option>
+  <option>Ca HC3 (9h00-16h00)</option>
+  <option>Ca HC4 (15h00-22h00)</option>
+  <option>Ca HC6 (7h30-15h00)</option>
+  <option>Full 1 (7h30-22h00)</option>
+  <option>Full 3 (7h30-20h00)</option>
+</select></td>
+    <td>.</td>
+  </tr>
+  <tr style="text-align: center;">
+    <td>104684</td>
+    <td colspan="2">Trần Xuân Thủy</td>
+    <td style="text-align: center;">
+<select class="op">
+  <option>Ca HC4 (14h00-21h00)</option>
+  <option>Ca HC6 (7h30-14h00)</option>
+  <option>Ca HC1 (7h30-16h30)</option>
+  <option>Ca HC2 (13h30-22h00)</option>
+  <option>Ca HC3 (9h00-16h00)</option>
+  <option>Ca HC4 (15h00-22h00)</option>
+  <option>Ca HC6 (7h30-15h00)</option>
+  <option>OFF</option>
+  <option>Full 1 (7h30-22h00)</option>
+  <option>Full 2 (8h00-22h00)</option>
+</select></td>
+    <td>.</td>
+  </tr>
+</table>
+ </div>
+    <input id="btn-Preview-Image" type="button" value="Preview"/>
+    <a id="btn-Convert-Html2Image" href="#">Download</a>
+    <a id="btn-Share" 
+    <br/>
+    <h3>Preview :</h3>
+    <div id="previewImage">
+    </div>	
+<p>fgf</p>
+
+<script>
+$(document).ready(function(){
+
+	
+var element = $("#html-content-holder"); // global variable
+var getCanvas; // global variable
+ 
+    $("#btn-Preview-Image").on('click', function () {
+         html2canvas(element, {
+         onrendered: function (canvas) {
+                $("#previewImage").append(canvas);
+                getCanvas = canvas;
+             }
+         });
+    });
+
+	$("#btn-Convert-Html2Image").on('click', function () {
+    var imgageData = getCanvas.toDataURL("image/png");
+    // Now browser starts downloading it instead of just showing it
+    var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+    $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
+	});
+
+});
+
+</script>
+
+<script type="text/javascript">
+  var d = new Date();
+  document.getElementById("datee").innerHTML = d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+</script>
+</body>
+</html>
